@@ -5,6 +5,7 @@
 
 import os
 os.environ['GROQ_API_KEY'] = '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'
+export LANGSMITH_API_KEY = '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'
 
 #  =========================================
 #  Módulo de leitura e carregamento de PDFs
