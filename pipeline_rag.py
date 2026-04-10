@@ -33,12 +33,13 @@ def answer_question(question, vectorstore):
     ]
 )
     from langchain_core.output_parsers import StrOutputParser
+    
     chain = (
     'final_context':{final_context}, 'question':{question}
     | final_prompt
     | llm
     | StrOutputParser()
     )
-    response = llm.invoke(final_prompt)
+    response = chain.invoke(final_prompt)
 
     return response.content, final_context
