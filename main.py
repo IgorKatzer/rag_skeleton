@@ -57,29 +57,38 @@ O módulo reranking.py será chamado na nossa pipeline de rag, após a declaraç
 #  ====================================================
 
 from pipeline_rag import answer_question
-import streamlit as st
+from IPython.display import display, Markdown
 
-st.set_page_config(page_title="Agente de RH com RAG", layout="wide")
-st.title("🤖 Agente de RH — Políticas Internas")
+answer, context= answer_question(
+    question='Posso bater no meu colega?',
+    vectorstore=vectorstore
+)
 
-request = st.text_input("Digite sua pergunta sobre políticas internas de RH:")
+display(Markdown(answer))
 
-if request:
-    with st.spinner("Consultando políticas internas..."):
-        documents = pdf_loader(pdf_pathway)
-        chunks = chunker(documents)
-        chunks = enriching_preprocessing_chunks(chunks)
-        vectorstore = create_vectorstore(chunks)
+# import streamlit as st
 
-        answer, source = answer_question(request, vectorstore)
+# st.set_page_config(page_title="Agente de RH com RAG", layout="wide")
+# st.title("🤖 Agente de RH — Políticas Internas")
 
-    st.subheader("Resposta")
-    st.write(answer)
+# request = st.text_input("Digite sua pergunta sobre políticas internas de RH:")
 
-    st.subheader("Fontes utilizadas")
-    for i, doc in enumerate(source, start=1):
-        st.markdown(f"**Trecho {i}**")
-        st.write(f"Documento: {doc.metadata.get('documento')}")
-        st.write(f"Categoria: {doc.metadata.get('categoria')}")
-        st.write(doc.page_content)
-        st.divider()
+# if request:
+#     with st.spinner("Consultando políticas internas..."):
+#         documents = pdf_loader(pdf_pathway)
+#         chunks = chunker(documents)
+#         chunks = enriching_preprocessing_chunks(chunks)
+#         vectorstore = create_vectorstore(chunks)
+
+#         answer, source = answer_question(request, vectorstore)
+
+#     st.subheader("Resposta")
+#     st.write(answer)
+
+#     st.subheader("Fontes utilizadas")
+#     for i, doc in enumerate(source, start=1):
+#         st.markdown(f"**Trecho {i}**")
+#         st.write(f"Documento: {doc.metadata.get('documento')}")
+#         st.write(f"Categoria: {doc.metadata.get('categoria')}")
+#         st.write(doc.page_content)
+#         st.divider()
