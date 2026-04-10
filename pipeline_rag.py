@@ -23,17 +23,15 @@ def answer_question(question, vectorstore):
     final_context = '\n\n'.join(
         doc.page_content for doc in final_documents
     )
-
-    final_prompt = f'''
-Você é um agente de RH corporativo.
-Responda APENAS com base nas políticas internas abaixo.
-
-Contexto:
-{final_context}
-
-Pergunta:
-{question}
-'''
+    
+    from langchain_core.prompts import ChatPromptTemplate 
+    
+    final_prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", "Você é um agente de RH corporativo. Responda APENAS com base nas políticas internas abaixo.\n\nContexto:\n{final_context}"),
+("human", "{question}")
+    ]
+}
     
     response = llm.invoke(final_prompt)
 
