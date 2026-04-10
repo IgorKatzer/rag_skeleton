@@ -1,0 +1,19 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# Ambiente virtual
+venv/
+.venv/
+Lib/
+
+# Python
+__pycache__/
+*.pyc
+
+# Banco vetorial
+chromadb_rh/
+
+# Variáveis de ambiente
+.env
+
+# VS Code
+.vscode/
