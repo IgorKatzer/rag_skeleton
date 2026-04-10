@@ -31,8 +31,14 @@ def answer_question(question, vectorstore):
         ("system", "Você é um agente de RH corporativo. Responda APENAS com base nas políticas internas abaixo.\n\nContexto:\n{final_context}"),
 ("human", "{question}")
     ]
-}
-    
+)
+    from langchain_core.output_parsers import StrOutputParser
+    chain = (
+    'final_context':{final_context}, 'question':{question}
+    | final_prompt
+    | llm
+    | StrOutputParser()
+    )
     response = llm.invoke(final_prompt)
 
     return response.content, final_context
